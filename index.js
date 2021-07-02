@@ -1,15 +1,17 @@
-const express = require('express')
-const app = express()
- 
-app.get('/', function (req, res) {
-  res.send('Hello World')
-})
- 
-app.get('/hola-mundo', function (req, res) {
-  res.send('Helloooo')
-})
+const express = require('express');
+const app = express();
+const port = 8080;
 
-app.get('*', function (req, res) {
-  res.send('Error 404 page not found')
-})
-app.listen(3000)
+// Servir contenido estatico
+app.use(express.static('public'));
+
+app.get('/hola-mundo', (req, res) => {
+  res.send('Helloooo');
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(__dirname + '/public/404.html');
+});
+app.listen(port, () => {
+  console.log(`App listening at httpd://localhost:${port}`);
+});
